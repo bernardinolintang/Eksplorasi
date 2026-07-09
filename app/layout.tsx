@@ -3,7 +3,7 @@ import "./globals.css";
 import { Providers } from "@/components/Providers";
 
 export const metadata: Metadata = {
-  title: "Eksplorasi — Explore Singapore's outdoors",
+  title: "Eksplorasi - Explore Singapore's outdoors",
   description:
     "Your personal map and journal of Singapore's parks, trails, reservoirs, islands and wild corners.",
 };

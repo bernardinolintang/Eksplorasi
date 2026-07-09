@@ -8,10 +8,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Status palette — green=visited, amber=want, grey=none
-        visited: "#16a34a",
-        want: "#f59e0b",
-        none: "#9ca3af",
+        // Status palette: green=visited, amber=want, grey=none
+        visited: "#15803d",
+        want: "#d97706",
+        none: "#4b5563",
       },
     },
   },

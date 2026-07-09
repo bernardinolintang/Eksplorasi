@@ -23,10 +23,10 @@ function Chip({
       type="button"
       onClick={onClick}
       className={cx(
-        "whitespace-nowrap rounded-full border px-3 py-1 text-xs font-medium shadow-sm transition-colors",
+        "whitespace-nowrap rounded-full border px-3 py-1.5 text-xs font-medium transition-colors",
         active
-          ? "border-emerald-600 bg-emerald-600 text-white"
-          : "border-stone-200 bg-white/95 text-stone-600 hover:bg-stone-100",
+          ? "border-stone-950 bg-stone-950 text-white shadow-sm"
+          : "border-white/70 bg-white/65 text-stone-600 hover:bg-white/95",
       )}
     >
       {children}
@@ -35,19 +35,23 @@ function Chip({
 }
 
 export function FilterChips() {
-  const { filters, setCategory, setRegion, setStatus } = useFilters();
+  const { filters, setCategory, setRegion, setStatus, reset } = useFilters();
+  const hasActiveFilters =
+    filters.search !== "" ||
+    filters.status !== "all" ||
+    filters.category !== "all" ||
+    filters.region !== "all";
 
   return (
     <div className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-      <Chip active={filters.status === "all" && filters.category === "all" && filters.region === "all"}
-        onClick={() => {
-          setStatus("all");
-          setCategory("all");
-          setRegion("all");
-        }}
-      >
+      <Chip active={!hasActiveFilters} onClick={reset}>
         All
       </Chip>
+      {hasActiveFilters && (
+        <Chip active={false} onClick={reset}>
+          Clear filters
+        </Chip>
+      )}
       {STATUSES.map((s) => (
         <Chip
           key={s}

@@ -56,7 +56,7 @@ export function ListTab({ onSelect }: { onSelect: (place: Place) => void }) {
   return (
     <div className="mx-auto h-full max-w-3xl overflow-y-auto p-4">
       <div className="sticky top-0 z-10 -mx-4 space-y-3 bg-stone-50/95 px-4 pb-3 pt-1 backdrop-blur">
-        <SearchBar placeholder="Search your list…" />
+        <SearchBar placeholder="Search your list..." />
         <div className="flex flex-wrap gap-2">
           <Select
             label="Status"
@@ -87,7 +87,7 @@ export function ListTab({ onSelect }: { onSelect: (place: Place) => void }) {
       </p>
 
       {visible.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-stone-300 p-8 text-center text-sm text-stone-400">
+          <p className="rounded-lg border border-dashed border-stone-300 p-8 text-center text-sm text-stone-400">
           No places match these filters. Try loosening them.
         </p>
       ) : (
@@ -97,13 +97,13 @@ export function ListTab({ onSelect }: { onSelect: (place: Place) => void }) {
             return (
               <li
                 key={p.id}
-                className="rounded-2xl border border-stone-200 bg-white p-4 shadow-sm"
+                className="rounded-lg border border-stone-200 bg-white p-4 shadow-sm"
               >
                 <div className="flex items-start justify-between gap-3">
                   <button
                     type="button"
                     onClick={() => onSelect(p)}
-                    className="text-left"
+                    className="min-w-0 text-left"
                   >
                     <div className="flex items-center gap-2">
                       <span
@@ -113,12 +113,19 @@ export function ListTab({ onSelect }: { onSelect: (place: Place) => void }) {
                       />
                       <h3 className="font-semibold text-stone-900">{p.name}</h3>
                     </div>
-                    <p className="mt-0.5 text-xs font-medium uppercase tracking-wide text-emerald-700">
-                      {CATEGORY_LABEL[p.category]} · {p.region}
+                    <p className="mt-0.5 text-xs font-medium uppercase tracking-wide text-stone-500">
+                      {CATEGORY_LABEL[p.category]} - {p.region}
                     </p>
                     <p className="mt-2 line-clamp-2 text-sm text-stone-600">
                       {p.description}
                     </p>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => onSelect(p)}
+                    className="shrink-0 rounded-full border border-stone-200 bg-white px-3 py-1.5 text-xs font-medium text-stone-800 transition hover:bg-stone-50"
+                  >
+                    View map
                   </button>
                 </div>
                 <div className={cx("mt-3")}>

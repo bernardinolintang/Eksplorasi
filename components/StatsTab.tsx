@@ -17,7 +17,7 @@ function Breakdown({
   labelFor: (key: string) => string;
 }) {
   return (
-    <section className="rounded-2xl border border-stone-200 bg-white p-4 shadow-sm">
+    <section className="rounded-lg border border-stone-200 bg-white p-4 shadow-sm">
       <h3 className="mb-3 text-sm font-semibold text-stone-900">{title}</h3>
       <ul className="space-y-2.5">
         {rows.map(([key, { total, visited }]) => {
@@ -52,7 +52,7 @@ export function StatsTab({ onSuggest }: { onSuggest: (place: Place) => void }) {
   const handleSuggest = () => {
     const next = suggestNextPlace(allPlaces, state);
     if (!next) {
-      setMessage("You've explored everything — what a legend. 🎉");
+      setMessage("You've explored everything - what a legend.");
       return;
     }
     setMessage(null);
@@ -74,7 +74,7 @@ export function StatsTab({ onSuggest }: { onSuggest: (place: Place) => void }) {
         <h2 className="text-2xl font-semibold text-stone-900">Your journey</h2>
         <p className="mt-1 text-sm text-stone-500">
           You&apos;ve explored {stats.visited} of {stats.total} places
-          {stats.want > 0 && <> · {stats.want} on your wishlist</>}.
+          {stats.want > 0 && <> - {stats.want} on your wishlist</>}.
         </p>
       </header>
 
@@ -85,7 +85,7 @@ export function StatsTab({ onSuggest }: { onSuggest: (place: Place) => void }) {
         <Stat label="Complete" value={`${stats.percentage}%`} />
       </div>
 
-      <div className="mb-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
+      <div className="mb-5 rounded-lg border border-emerald-200 bg-emerald-50 p-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <p className="text-sm text-emerald-900">
             Not sure where to wander next?
@@ -115,7 +115,7 @@ export function StatsTab({ onSuggest }: { onSuggest: (place: Place) => void }) {
 
 function Stat({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="rounded-2xl border border-stone-200 bg-white p-4 text-center shadow-sm">
+    <div className="rounded-lg border border-stone-200 bg-white p-4 text-center shadow-sm">
       <p className="text-2xl font-semibold text-stone-900">{value}</p>
       <p className="mt-0.5 text-xs uppercase tracking-wide text-stone-400">
         {label}

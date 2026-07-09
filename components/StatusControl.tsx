@@ -22,7 +22,7 @@ export function StatusControl({ placeId }: { placeId: string }) {
     <div
       role="group"
       aria-label="Exploration status"
-      className="inline-flex rounded-full border border-stone-200 bg-white p-0.5 shadow-sm"
+      className="flex w-full max-w-sm rounded-full border border-stone-200 bg-white/80 p-0.5 shadow-sm backdrop-blur"
     >
       {ORDER.map((s) => {
         const isActive = current === s;
@@ -33,7 +33,7 @@ export function StatusControl({ placeId }: { placeId: string }) {
             aria-pressed={isActive}
             onClick={() => setStatus(placeId, s)}
             className={cx(
-              "rounded-full px-3 py-1 text-xs font-medium transition-colors border border-transparent",
+              "flex-1 rounded-full border border-transparent px-3 py-1 text-xs font-medium transition-colors",
               isActive
                 ? ACTIVE[s]
                 : "text-stone-500 hover:bg-stone-100",

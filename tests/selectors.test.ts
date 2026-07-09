@@ -93,6 +93,13 @@ describe("suggestNextPlace", () => {
     expect(suggestNextPlace(SAMPLE, state, () => 0)?.id).toBe("c");
   });
 
+  it("prefers wishlist places before other unvisited places", () => {
+    const state: UserState = {
+      b: { status: "want", notes: "" },
+    };
+    expect(suggestNextPlace(SAMPLE, state, () => 0)?.id).toBe("b");
+  });
+
   it("returns null when everything is visited", () => {
     const state: UserState = {
       a: { status: "visited", notes: "" },

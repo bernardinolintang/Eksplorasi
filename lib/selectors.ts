@@ -19,7 +19,7 @@ export function statusOf(userState: UserState, id: string): Status {
   return (userState[id] ?? DEFAULT_PLACE_STATE).status;
 }
 
-/** Apply the shared filters to the place list. Pure — safe to memoise. */
+/** Apply the shared filters to the place list. Pure and safe to memoise. */
 export function filterPlaces(
   allPlaces: Place[],
   userState: UserState,
@@ -83,13 +83,17 @@ export function computeStats(allPlaces: Place[], userState: UserState): Stats {
   return { total, visited, want, none, percentage, byCategory, byRegion };
 }
 
-/** Pick a random place whose status is not "visited". Returns null if none. */
+/** Prefer a random wishlist place, then any random place not yet visited. */
 export function suggestNextPlace(
   allPlaces: Place[],
   userState: UserState,
   rng: () => number = Math.random,
 ): Place | null {
-  const candidates = allPlaces.filter((p) => statusOf(userState, p.id) !== "visited");
+  const wants = allPlaces.filter((p) => statusOf(userState, p.id) === "want");
+  const candidates =
+    wants.length > 0
+      ? wants
+      : allPlaces.filter((p) => statusOf(userState, p.id) !== "visited");
   if (candidates.length === 0) return null;
   return candidates[Math.floor(rng() * candidates.length)];
 }

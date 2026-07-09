@@ -15,11 +15,12 @@ export interface ExplorationMapProps {
   statusFor: (id: string) => Status;
   onSelect: (place: Place) => void;
   focus: Place | null;
+  selectedId: string | null;
 }
 
 const LOADING = (
   <div className="flex h-full w-full items-center justify-center bg-stone-100 text-sm text-stone-400">
-    Loading map…
+    Loading map...
   </div>
 );
 

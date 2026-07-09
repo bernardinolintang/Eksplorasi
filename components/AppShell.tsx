@@ -10,11 +10,38 @@ import { cx } from "@/lib/ui";
 
 type Tab = "map" | "list" | "stats";
 
-const TABS: { id: Tab; label: string; icon: string }[] = [
-  { id: "map", label: "Map", icon: "🗺️" },
-  { id: "list", label: "List", icon: "📋" },
-  { id: "stats", label: "Stats", icon: "📊" },
+const TABS: { id: Tab; label: string }[] = [
+  { id: "map", label: "Map" },
+  { id: "list", label: "List" },
+  { id: "stats", label: "Stats" },
 ];
+
+function TabIcon({ tab }: { tab: Tab }) {
+  if (tab === "map") {
+    return (
+      <span className="relative h-4 w-4 rounded-sm border border-current" aria-hidden>
+        <span className="absolute inset-y-0 left-1/3 border-l border-current" />
+        <span className="absolute inset-y-0 right-1/3 border-l border-current" />
+      </span>
+    );
+  }
+  if (tab === "list") {
+    return (
+      <span className="flex h-4 w-4 flex-col justify-center gap-1" aria-hidden>
+        <span className="h-0.5 rounded-full bg-current" />
+        <span className="h-0.5 rounded-full bg-current" />
+        <span className="h-0.5 rounded-full bg-current" />
+      </span>
+    );
+  }
+  return (
+    <span className="flex h-4 w-4 items-end justify-center gap-0.5" aria-hidden>
+      <span className="h-1.5 w-1 rounded-full bg-current" />
+      <span className="h-3 w-1 rounded-full bg-current" />
+      <span className="h-2 w-1 rounded-full bg-current" />
+    </span>
+  );
+}
 
 export function AppShell() {
   const [tab, setTab] = useState<Tab>("map");
@@ -29,10 +56,10 @@ export function AppShell() {
   };
 
   return (
-    <div className="flex h-[100dvh] flex-col">
-      <header className="flex items-center justify-between border-b border-stone-200 bg-white px-4 py-2.5">
+    <div className="flex h-[100dvh] flex-col bg-stone-50 text-stone-950">
+      <header className="flex items-center justify-between border-b border-stone-200/70 bg-white/85 px-4 py-2.5 backdrop-blur-2xl">
         <div className="flex items-baseline gap-2">
-          <h1 className="text-lg font-bold tracking-tight text-emerald-700">
+          <h1 className="text-lg font-semibold tracking-tight text-stone-950">
             Eksplorasi
           </h1>
           <span className="hidden text-xs text-stone-400 sm:inline">
@@ -44,7 +71,11 @@ export function AppShell() {
       <main className="relative flex-1 overflow-hidden">
         {/* Keep Map mounted always so its state/markers persist across tabs. */}
         <div className={cx("absolute inset-0", tab === "map" ? "block" : "hidden")}>
-          <MapTab focus={focus} onSelect={setSelected} />
+          <MapTab
+            focus={focus}
+            selected={selected}
+            onSelect={setSelected}
+          />
         </div>
         {tab === "list" && (
           <div className="absolute inset-0">
@@ -58,7 +89,7 @@ export function AppShell() {
         )}
       </main>
 
-      <nav className="grid grid-cols-3 border-t border-stone-200 bg-white">
+      <nav className="grid grid-cols-3 border-t border-stone-200/70 bg-white/85 backdrop-blur-2xl">
         {TABS.map((t) => (
           <button
             key={t.id}
@@ -68,13 +99,11 @@ export function AppShell() {
             className={cx(
               "flex flex-col items-center gap-0.5 py-2 text-xs font-medium transition-colors",
               tab === t.id
-                ? "text-emerald-700"
+                ? "text-stone-950"
                 : "text-stone-400 hover:text-stone-600",
             )}
           >
-            <span className="text-base" aria-hidden>
-              {t.icon}
-            </span>
+            <TabIcon tab={t.id} />
             {t.label}
           </button>
         ))}

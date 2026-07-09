@@ -1,7 +1,7 @@
 // Small shared UI helpers and label maps.
 
 import type { Status } from "@/hooks/useUserState";
-import type { Category } from "@/data/places";
+import type { Category, Place } from "@/data/places";
 
 export const STATUS_LABEL: Record<Status, string> = {
   visited: "Visited",
@@ -9,11 +9,11 @@ export const STATUS_LABEL: Record<Status, string> = {
   none: "Not visited",
 };
 
-// Marker/dot colours — green=visited, amber=want, grey=none (data convention).
+// Marker/dot colours: green=visited, amber=want, grey=none (data convention).
 export const STATUS_COLOR: Record<Status, string> = {
-  visited: "#16a34a",
-  want: "#f59e0b",
-  none: "#9ca3af",
+  visited: "#15803d",
+  want: "#d97706",
+  none: "#4b5563",
 };
 
 export const CATEGORY_LABEL: Record<Category, string> = {
@@ -32,8 +32,14 @@ export function cx(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(" ");
 }
 
-// Opens a pin at these exact coordinates on Google Maps — independent of
+// Opens a named place search on Google Maps, independent of
 // which map provider (Leaflet/Google) is rendering the app itself.
-export function googleMapsUrl(lat: number, lng: number): string {
-  return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+export function googleMapsUrl(place: Place): string {
+  const query = encodeURIComponent(`${place.name}, Singapore`);
+  return `https://www.google.com/maps/search/?api=1&query=${query}`;
+}
+
+export function googleMapsDirectionsUrl(place: Place): string {
+  const destination = encodeURIComponent(`${place.name}, Singapore`);
+  return `https://www.google.com/maps/dir/?api=1&destination=${destination}&travelmode=walking`;
 }
